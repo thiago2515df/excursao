@@ -1,8 +1,13 @@
 [phases.setup]
-nixPkgs = ["nodejs-18_x", "pnpm"]
+nixPkgs = ["nodejs_20", "python3"]
+nixLibs = ["glibc"]
 
 [phases.install]
-cmds = ["pnpm install"]
+cmds = [
+  "corepack enable",
+  "corepack prepare pnpm@latest --activate",
+  "pnpm install --frozen-lockfile=false"
+]
 
 [phases.build]
 cmds = ["pnpm build"]
