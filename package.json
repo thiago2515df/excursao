@@ -10,7 +10,8 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
-    "db:push": "drizzle-kit generate --config=drizzle.config.postgres.ts && drizzle-kit migrate --config=drizzle.config.postgres.ts"
+    "db:push": "drizzle-kit generate --config=drizzle.config.postgres.ts && drizzle-kit migrate --config=drizzle.config.postgres.ts",
+    "db:migrate": "node migrate.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",
