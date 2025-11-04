@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import Database from "better-sqlite3";
+import { mkdirSync, existsSync } from "fs";
 import { InsertUser, users, proposals, InsertProposal, Proposal } from "../drizzle/schema.sqlite";
 import { ENV } from './_core/env';
 
@@ -10,8 +11,16 @@ let _db: ReturnType<typeof drizzle> | null = null;
 export async function getDb() {
   if (!_db) {
     try {
+      // Garantir que o diretório data/ existe
+      const dataDir = './data';
+      if (!existsSync(dataDir)) {
+        mkdirSync(dataDir, { recursive: true });
+        console.log("[Database] Created data directory");
+      }
+      
       const sqlite = new Database('./data/proposta-viagem.db');
       _db = drizzle(sqlite);
+      console.log("[Database] Connected successfully");
     } catch (error) {
       console.warn("[Database] Failed to connect:", error);
       _db = null;
