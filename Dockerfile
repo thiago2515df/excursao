@@ -24,6 +24,9 @@ RUN pnpm install --frozen-lockfile=false
 # Copy source code
 COPY . .
 
+# Rebuild better-sqlite3 for the current platform
+RUN pnpm rebuild better-sqlite3
+
 # Build application
 RUN pnpm build
 
