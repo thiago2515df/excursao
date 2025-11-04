@@ -1,13 +1,6 @@
 # Use Node.js 20 official image
 FROM node:20-slim
 
-# Install Python and build tools for native dependencies
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
 # Set working directory
 WORKDIR /app
 
@@ -21,10 +14,8 @@ COPY patches ./patches
 # Copy source code
 COPY . .
 
-# Install dependencies and rebuild better-sqlite3
-RUN pnpm install --frozen-lockfile=false && \
-    pnpm rebuild better-sqlite3 && \
-    ls -la node_modules/.pnpm/better-sqlite3*/node_modules/better-sqlite3/build/ || true
+# Install dependencies
+RUN pnpm install --frozen-lockfile=false
 
 # Build application
 RUN pnpm build

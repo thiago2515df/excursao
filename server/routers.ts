@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { createProposal, getAllProposals, getProposalById, deleteProposal, markProposalAsViewed, markProposalAsApproved, updateProposal } from "./db.sqlite";
+import { createProposal, getAllProposals, getProposalById, deleteProposal, markProposalAsViewed, markProposalAsApproved, updateProposal } from "./db.postgres";
 import { storagePut } from "./storage-local";
 
 export const appRouter = router({
