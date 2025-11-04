@@ -18,14 +18,13 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY package.json pnpm-lock.yaml ./
 COPY patches ./patches
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile=false
-
 # Copy source code
 COPY . .
 
-# Rebuild better-sqlite3 for the current platform
-RUN pnpm rebuild better-sqlite3
+# Install dependencies and rebuild better-sqlite3
+RUN pnpm install --frozen-lockfile=false && \
+    pnpm rebuild better-sqlite3 && \
+    ls -la node_modules/.pnpm/better-sqlite3*/node_modules/better-sqlite3/build/ || true
 
 # Build application
 RUN pnpm build
